@@ -142,7 +142,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:0 16px 30px}
 <script>
 {
   /* Set SCRIPT_URL in Vercel (served by /api/config), or paste the Web App URL here (ends with /exec). */
-  let SCRIPT_URL = "";
+  let SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzg02bHKLi2SKCCrDbH86Rb1TEXKTkPDiZnHhQzrejMAkkva8nABT1PVJ_O1APE_uN7/exec";
   const ready = SCRIPT_URL ? Promise.resolve() : fetch("/api/config")
     .then(r => r.ok ? r.json() : {}).then(c => { if (c && c.scriptUrl) SCRIPT_URL = c.scriptUrl; }).catch(() => {});
 

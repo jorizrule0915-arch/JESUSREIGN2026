@@ -86,7 +86,7 @@ tr.e td:first-child{padding-left:32px;color:#33405a}
 <script>
 {
   /* Set SCRIPT_URL in Vercel (served by /api/config), or paste the same Web App URL as index.html here (ends with /exec). */
-  let SCRIPT_URL = "";
+  let SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzg02bHKLi2SKCCrDbH86Rb1TEXKTkPDiZnHhQzrejMAkkva8nABT1PVJ_O1APE_uN7/exec";
   const ready = SCRIPT_URL ? Promise.resolve() : fetch("/api/config")
     .then(r => r.ok ? r.json() : {}).then(c => { if (c && c.scriptUrl) SCRIPT_URL = c.scriptUrl; }).catch(() => {});
   const YEAR = 2026, LAST_YEAR = 2025;
