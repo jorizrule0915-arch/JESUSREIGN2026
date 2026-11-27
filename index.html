@@ -141,12 +141,14 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:0 16px 30px}
 
 <script>
 {
-  /* Paste your Google Apps Script Web App URL here (ends with /exec). */
-  const SCRIPT_URL = "";
+  /* Set SCRIPT_URL in Vercel (served by /api/config), or paste the Web App URL here (ends with /exec). */
+  let SCRIPT_URL = "";
+  const ready = SCRIPT_URL ? Promise.resolve() : fetch("/api/config")
+    .then(r => r.ok ? r.json() : {}).then(c => { if (c && c.scriptUrl) SCRIPT_URL = c.scriptUrl; }).catch(() => {});
 
   const $ = id => document.getElementById(id);
   const form = $("form"), btn = $("submit"), errBox = $("errBox");
-  if (!SCRIPT_URL) $("demo").style.display = "block";
+  ready.then(() => { if (!SCRIPT_URL) $("demo").style.display = "block"; });
 
   const fields = ["church","pastor","location","delegates","remarks"];
   const checks = {
@@ -182,6 +184,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:0 16px 30px}
     btn.disabled = true; btn.textContent = "Submitting…";
     try {
       let ref;
+      await ready;
       if (SCRIPT_URL) {
         const res = await fetch(SCRIPT_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(data) });
         const out = await res.json();
