@@ -10,7 +10,11 @@ Files: `index.html` (public form) · `admin.html` (dashboard + Excel export) · 
 5. Deploy → New deployment → type **Web app** → Execute as **Me**, Who has access **Anyone** → Deploy → copy the URL ending in `/exec`.
 
 ## 2. Connect the pages
-Paste that URL into `const SCRIPT_URL = "";` in **both** `index.html` and `admin.html`. The yellow "Preview mode" note disappears once it's set.
+**On Vercel:** go to Project → Settings → Environment Variables, add `SCRIPT_URL` = that URL (for Production, Preview and Development), then **Redeploy**. Both pages read it from `/api/config`.
+
+**Elsewhere (Netlify Drop, GitHub Pages):** paste that URL into `let SCRIPT_URL = "";` in **both** `index.html` and `admin.html`.
+
+The yellow "Preview mode" note disappears once it's set.
 
 ## 3. Host (free)
 Drag the two HTML files onto Netlify Drop (app.netlify.com/drop), or push to GitHub Pages / Vercel. Share the `index.html` link with churches; keep `admin.html` for organisers.

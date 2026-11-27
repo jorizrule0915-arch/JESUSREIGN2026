@@ -85,8 +85,10 @@ tr.e td:first-child{padding-left:32px;color:#33405a}
 
 <script>
 {
-  /* Same Web App URL as index.html (ends with /exec). */
-  const SCRIPT_URL = "";
+  /* Set SCRIPT_URL in Vercel → Settings → Environment Variables (served by /api/config).
+     You can also paste the Web App URL (ends with /exec) here as a fallback. */
+  let SCRIPT_URL = "";
+  const config = fetch("/api/config").then(r => r.ok ? r.json() : {}).then(c => { if (c.scriptUrl) SCRIPT_URL = c.scriptUrl; }).catch(() => {});
   const YEAR = 2026, LAST_YEAR = 2025;
 
   const $ = id => document.getElementById(id);
@@ -109,7 +111,8 @@ tr.e td:first-child{padding-left:32px;color:#33405a}
   }
 
   async function load() {
-    if (!SCRIPT_URL) throw new Error("SCRIPT_URL is not set in admin.html.");
+    await config;
+    if (!SCRIPT_URL) throw new Error("SCRIPT_URL is not set. Add it in Vercel → Settings → Environment Variables, then redeploy.");
     const res = await fetch(SCRIPT_URL + "?action=list&key=" + encodeURIComponent(key));
     const out = await res.json();
     if (!out.ok) throw new Error(out.error);
